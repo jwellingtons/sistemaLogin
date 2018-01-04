@@ -12,7 +12,19 @@ class CadastroController extends \HXPHP\System\Controller
 			'email' => FILTER_VALIDATE_EMAIL
 		));
 
-		//Chama o model
-		$cadastrarUsuario = User::cadastrar($this->request->post());
+		$post = $this->request->post();
+
+		//Verifica se o POST não está vazio e chama o model
+		if (!empty($post)) {
+			$cadastrarUsuario = User::cadastrar($post);
+
+			if ($cadastrarUsuario->status === false) {
+				$this->load('Helpers\Alert', array(
+					'danger',
+					'Ops! Não foi possível efetuar seu cadastro.<br />Verifique os erros abaixo:',
+					$cadastrarUsuario->errors
+				));
+			}
+		}
 	}
 }

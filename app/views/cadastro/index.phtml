@@ -6,6 +6,7 @@
           <img class="img-responsive" src="<?php echo IMG; ?>hxphp-logo.png" alt="">
         </a> <br>
         <?php echo (isset($this->menu) ? $this->menu : ''); ?>
+        <?php echo(isset($this->alert)?$this->alert:''); ?>
       </div>
       <div class="panel-body">
         <form class="form-horizontal" action="<?php echo BASE; ?>cadastro/cadastrar" method="POST">
