@@ -34,17 +34,17 @@ class User extends \HXPHP\System\Model
 	public static function cadastrar($post)
 	{
 		//Cria uma classe vazia pra armazenar o retorno das validações
-		$userObj = new \stdClass;
-		$userObj->user = null;
-		$userObj->status = false;
-		$userObj->errors = array();
+		$callbackObj = new \stdClass;
+		$callbackObj->user = null;
+		$callbackObj->status = false;
+		$callbackObj->errors = array();
 
 		//Recupera o role_id de user
 		$role = Role::find_by_role('User');
 
 		if (is_null($role)) {
-			array_push($userObj->errors, 'A role user não existe. Contato o administrator');
-			return $userObj;
+			array_push($callbackObj->errors, 'A role user não existe. Contato o administrator');
+			return $callbackObj;
 		}
 
 		//Insere os dados recuperado do role no array do post
@@ -63,17 +63,17 @@ class User extends \HXPHP\System\Model
 		$cadastrar = self::create($post);
 
 		if ($cadastrar->is_valid()) {
-			$userObj->user = $cadastrar;
-			$userObj->status = true;
-			return $userObj;
+			$callbackObj->user = $cadastrar;
+			$callbackObj->status = true;
+			return $callbackObj;
 		}
 
 		$errors = $cadastrar->errors->get_raw_errors();
 
 		foreach ($errors as $field => $message) {
-			array_push($userObj->errors, $message[0]);
+			array_push($callbackObj->errors, $message[0]);
 		}
 
-		return $userObj;
+		return $callbackObj;
 	}
 }
