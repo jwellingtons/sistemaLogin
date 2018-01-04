@@ -14,6 +14,8 @@ $configs->env->development->database->setConnectionData(array(
   'dbname' => 'wt_sistema'
 ));
 
+$configs->env->development->auth->setURLs('/sistema/home/', '/sistema/login');
+
 /*
   //Globais
   $configs->title = 'Titulo customizado';
