@@ -22,7 +22,7 @@ class LoginController extends \HXPHP\System\Controller
 		$post = $this->request->post();
 
 		if (!empty($post)) {
-			# code...
+			User::login($post);
 		}
 	}
 }

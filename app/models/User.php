@@ -85,11 +85,17 @@ class User extends \HXPHP\System\Model
 		if (!is_null($user)) {
 			$password = \HXPHP\System\Tools::hashHX($post['password'], $user->salt);
 
-			if (LoginAttempt::ExistemTentativas($user->id)) {
-				if ($password['password'] === $user->password) {
-					LoginAttempt::LimparTentativas($user->id);
+			if ($user->status === 1) {
+				if (LoginAttempt::ExistemTentativas($user->id)) {
+					if ($password['password'] === $user->password) {
+						var_dump("Logado");
+						LoginAttempt::LimparTentativas($user->id);
+					}else{
+						LoginAttempt::RegistrarTentativas($user->id);
+					}
 				}else{
-					LoginAttempt::RegistrarTentativas($user->id);
+					$user->status = 0;
+					$user->save();
 				}
 			}
 		}
