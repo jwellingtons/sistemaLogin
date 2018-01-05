@@ -85,6 +85,7 @@ class User extends \HXPHP\System\Model
 		$callbackObj->user = null;
 		$callbackObj->status = false;
 		$callbackObj->code = array();
+		$callbackObj->tentativas_restantes = null;
 
 		$user = self::find_by_username($post['username']);
 
@@ -99,8 +100,12 @@ class User extends \HXPHP\System\Model
 
 						LoginAttempt::LimparTentativas($user->id);
 					}else{
-						$callbackObj->code = 'dados-incorretos';
-
+						if (LoginAttempt::TentativasRestantes($user->id) <= 3) {
+							$callbackObj->code = 'tentativas-esgotando';
+							$callbackObj->tentativas_restantes = LoginAttempt::TentativasRestantes($user->id);
+						}else{
+							$callbackObj->code = 'dados-incorretos';
+						}
 						LoginAttempt::RegistrarTentativas($user->id);
 					}
 				}else{
