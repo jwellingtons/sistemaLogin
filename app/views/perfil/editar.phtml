@@ -1,0 +1,50 @@
+<div class="panel-body">
+  <?php
+  $values = [];
+  Form::open('editarusuario', $values, [
+    'action' => BASE . 'perfil/atualizar/',
+    'prevent' => [
+      'focus'
+    ]
+  ]);
+
+  Form::Textbox(
+    'Nome:',
+    'name',
+    array(
+      'required' => 1
+    )
+  );
+
+  Form::Email(
+    'E-mail:',
+    'email',
+    array(
+      'required' => 1
+    )
+  );
+
+  Form::Textbox(
+    'Login:',
+    'username',
+    array(
+      'required' => 1
+    )
+  );
+
+  Form::Password(
+    'Senha',
+    'password',
+    array(
+      'placeholder' => 'preencha somente se quiser atualizar a senha'
+    )
+  );
+
+  Form::Button('Atualizar perfil', 'submit', [
+    'style' => 'width: 100%',
+    'class' => 'btn-success'
+  ]);
+
+  Form::close(false);
+  ?>
+</div>
