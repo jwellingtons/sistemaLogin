@@ -64,13 +64,15 @@ class RecuperarController extends \HXPHP\System\Controller
 
 				$envioDoEmail = $this->email->send(
 					$validar->user->email,
-					$message['subject'],
-					$message['message'],
+					'WtSystem' . $message['subject'],
+					$message['message'] . 'WtSystem',
 					array(
 						'email' => $this->configs->mail->from_mail,
 						'remetente' => $this->configs->mail->from
 					)
 				);
+
+				var_dump($message);
 
 				if ($envioDoEmail === false) {
 					$error = $this->messages->getByCode('email-nao-enviado');
@@ -93,7 +95,7 @@ class RecuperarController extends \HXPHP\System\Controller
 
 	public function redefinirAction($token)
 	{
-		# code...
+		$validarToken = Recovery::validarToken($token);
 	}
 
 	public function alterarSenhaAction($token)
