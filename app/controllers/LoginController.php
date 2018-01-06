@@ -12,11 +12,17 @@ class LoginController extends \HXPHP\System\Controller
 			$configs->auth->after_logout,
 			true
 		);
+	}
 
+	public function indexAction()
+	{
 		$this->auth->redirectCheck(true);
 	}
+
 	public function logarAction()
 	{
+		$this->auth->redirectCheck(true);
+
 		$this->view->setFile('index');
 
 		$post = $this->request->post();
@@ -36,5 +42,10 @@ class LoginController extends \HXPHP\System\Controller
 				$this->load('Helpers\Alert', $error);
 			}
 		}
+	}
+
+	public function sairAction()
+	{
+		return $this->auth->logout();
 	}
 }

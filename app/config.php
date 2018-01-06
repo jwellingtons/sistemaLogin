@@ -16,6 +16,21 @@ $configs->env->development->database->setConnectionData(array(
 
 $configs->env->development->auth->setURLs('/sistema/home/', '/sistema/login');
 
+
+
+$configs->env->add('production');
+
+$configs->env->production->baseURI = '/sistema';
+
+$configs->env->production->database->setConnectionData(array(
+  'host' => 'localhost',
+  'user' => 'wesley_wt',
+  'password' => 'Wtc0304!',
+  'dbname' => 'wesley_sistema'
+));
+
+$configs->env->production->auth->setURLs('/sistema/home/', '/sistema/login');
+
 /*
   //Globais
   $configs->title = 'Titulo customizado';

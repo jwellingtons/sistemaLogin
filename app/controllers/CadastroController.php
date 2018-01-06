@@ -12,7 +12,6 @@ class CadastroController extends \HXPHP\System\Controller
 			$configs->auth->after_logout,
 			true
 		);
-
 		$this->auth->redirectCheck(true);
 	}
 
