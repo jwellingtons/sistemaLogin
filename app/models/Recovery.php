@@ -19,7 +19,7 @@ class Recovery extends \HXPHP\System\Model
 		if (!is_null($user_exists)) {
 			//Retorna id do user
 			$callback_obj->status = true;
-			$callback_obj->user = $user_exists->id;
+			$callback_obj->user = $user_exists;
 
 			//Apaga tokens de recuperações antigos
 			self::delete_all(array(
