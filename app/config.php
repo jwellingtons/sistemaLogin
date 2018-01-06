@@ -16,7 +16,15 @@ $configs->env->development->database->setConnectionData(array(
 
 $configs->env->development->auth->setURLs('/sistema/home/', '/sistema/login');
 
+$configs->env->development->menu->setMenus(array(
+  'Home/dashboard' => '%baseURI%/home',
+  'Projetos/briefcase' => '%baseURI%/projetos',
+  'Editar Perfil/cog' => '%baseURI%/perfil/editar'
+), 'user');
 
+$configs->env->development->menu->setMenus(array(
+  'Home/dashboard' => '%baseURI%/home'
+));
 
 $configs->env->add('production');
 
