@@ -1,6 +1,10 @@
 <div class="panel-body">
   <?php
-  $values = [];
+  $values = [
+    'name' => $view_user->name,
+    'email' => $view_user->email,
+    'username' => $view_user->username
+  ];
   Form::open('editarusuario', $values, [
     'action' => BASE . 'perfil/atualizar/',
     'prevent' => [
@@ -36,7 +40,7 @@
     'Senha',
     'password',
     array(
-      'placeholder' => 'preencha somente se quiser atualizar a senha'
+      'placeholder' => 'Preencha somente se quiser atualizar a senha'
     )
   );
 
