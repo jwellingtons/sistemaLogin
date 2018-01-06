@@ -8,7 +8,8 @@
     "require": {
         "php": ">=7.0.0",
         "php-activerecord/php-activerecord": "dev-master",
-        "avbdr/php-bootstrap-form": "dev-master"
+        "avbdr/php-bootstrap-form": "dev-master",
+        "verot/class.upload.php": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.2"
