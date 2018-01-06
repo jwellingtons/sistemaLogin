@@ -13,5 +13,10 @@ class HomeController extends \HXPHP\System\Controller
 		);
 
 		$this->auth->redirectCheck();
+
+		$user_id = $this->auth->getUserId();
+
+		$this->view->setTitle('HXPHP - Administrativo')
+					->setVar('user', User::find($user_id));
 	}
 }
