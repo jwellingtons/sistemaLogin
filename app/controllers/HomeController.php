@@ -19,4 +19,11 @@ class HomeController extends \HXPHP\System\Controller
 		$this->view->setTitle('HXPHP - Administrativo')
 					->setVar('user', User::find($user_id));
 	}
+
+	public function bloqueadaAction()
+	{
+		$this->auth->roleCheck(array(
+			'administrator'
+		));
+	}
 }

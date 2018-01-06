@@ -6,7 +6,7 @@
 class User extends \HXPHP\System\Model
 {
 	static $belongs_to = array(
-		array('role');
+		array('role')
 	);
 	static $validates_presence_of = array(
 		array(
