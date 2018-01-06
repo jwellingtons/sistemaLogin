@@ -39,7 +39,7 @@ class Recovery extends \HXPHP\System\Model
 		return $callback_obj;
 	}
 
-	public static function validarToken($value='')
+	public static function validarToken($token)
 	{
 		$callback_obj = new \stdClass;
 		$callback_obj->user = null;

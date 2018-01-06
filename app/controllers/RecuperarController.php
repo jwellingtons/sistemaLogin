@@ -14,15 +14,18 @@ class RecuperarController extends \HXPHP\System\Controller
 		);
 
 		$this->auth->redirectCheck(true);
+
+		//Altera o titulo da views
+		$this->view->setTitle('SistemaHx - Altere sua senha');
+
+		//Carrega o modulo de mensagens
+		$this->load('Modules\Messages', 'password-recovery');
+		$this->messages->setBlock('alerts');
 	}
 
 	public function solicitarAction()
 	{
 		$this->view->setFile('index');
-
-		//Carrega o modulo de mensagens
-		$this->load('Modules\Messages', 'password-recovery');
-		$this->messages->setBlock('alerts');
 
 		//Filtra se o campo email enviado no form é um email valido, caso contrario insere null na variavel
 		$this->request->setCustomFilters(array(
@@ -96,6 +99,21 @@ class RecuperarController extends \HXPHP\System\Controller
 	public function redefinirAction($token)
 	{
 		$validarToken = Recovery::validarToken($token);
+
+		$error = null;
+
+		if ($validarToken->status === false) {
+			$error = $this->messages->getByCode($validarToken->code);
+		}else{
+			//Se token validado passa o token via variaveu para view
+			$this->view->setVar('token', $token);
+		}
+
+		if (!is_null($error)) {
+			$this->view->setFile('blank');
+			$this->load('Helpers\Alert', $error);
+		}
+
 	}
 
 	public function alterarSenhaAction($token)
