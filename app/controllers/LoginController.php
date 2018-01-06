@@ -31,7 +31,7 @@ class LoginController extends \HXPHP\System\Controller
 			$login = User::login($post);
 
 			if ($login->status === true) {
-				$this->auth->login($login->user->id, $login->user->username);
+				$this->auth->login($login->user->id, $login->user->username, $login->user->role->role);
 			}else{
 				$this->load('Modules\Messages', 'auth');
 				$this->messages->setBlock('alerts');
