@@ -57,4 +57,14 @@ class Recovery extends \HXPHP\System\Model
 
 		return $callback_obj;
 	}
+
+	public static function limpar($user_id)
+	{
+		return self::delete_all(array(
+			'conditions' => array(
+				'user_id = ?',
+				$user_id
+			)
+		));
+	}
 }

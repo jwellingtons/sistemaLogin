@@ -118,6 +118,43 @@ class RecuperarController extends \HXPHP\System\Controller
 
 	public function alterarSenhaAction($token)
 	{
-		# code...
+		$this->view->setFile('redefinir');
+
+		$validarToken = Recovery::validarToken($token);
+
+		$error = null;
+
+		if ($validarToken->status === false) {
+			$this->view->setFile('blank');
+			$error = $this->messages->getByCode($validarToken->code);
+		}else{
+			$this->view->setVar('token', $token);
+
+			//Se o token validado trata o recebimento do form
+			$password = $this->request->post('password');
+
+			if (!is_null($password)) {
+				$atualizarSenha = User::atualizarSenha($validarToken->user, $password);
+
+				if ($atualizarSenha === true) {
+					//Limpar o token do bd
+					Recovery::limpar($validarToken->user->id);
+
+					//Mostra uma view em putra pasta
+					$this->view->setPath('login')
+					->setFile('index');
+
+					//Mostra msn de sucesso
+					$success = $this->messages->getByCode('senha-redefinida');
+					$this->load('Helpers\Alert', $success);
+				}
+			}else{
+				//Validar se a senha não foi informada
+			}
+		}
+
+		if (!is_null($error)) {
+			$this->load('Helpers\Alert', $error);
+		}
 	}
 }

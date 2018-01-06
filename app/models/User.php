@@ -123,4 +123,13 @@ class User extends \HXPHP\System\Model
 
 		return $callbackObj;
 	}
+
+	public static function atualizarSenha($user, $newPassword)
+	{
+		$user = self::find_by_id($user->id);
+
+		$password = \HXPHP\System\Tools::hashHX($newPassword);
+
+		return $user->update_attributes($password);
+	}
 }
