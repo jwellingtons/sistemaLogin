@@ -7,10 +7,20 @@
   ];
   Form::open('editarusuario', $values, [
     'action' => BASE . 'perfil/editar/',
+    'enctype' => 'multipart/form-data',
     'prevent' => [
       'focus'
     ]
   ]);
+
+  if (!is_null($view_user->image)) {
+    echo '<image src="'.BASE.'public/uploads/users/'.$view_user->id.'/'.$view_user->image.'" width="200" />';
+  }
+
+  Form::File(
+    'Imagem do usuário:',
+    'image'
+  );
 
   Form::Textbox(
     'Nome:',

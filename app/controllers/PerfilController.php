@@ -49,12 +49,45 @@ class PerfilController extends \HXPHP\System\Controller
 					$atualizarUsuario->errors
 				));
 			}else {
-				$this->view->setVar('user', $atualizarUsuario->user);
+				if (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) {
+					$uploadUserImage = new upload($_FILES['image']);
+					if ($uploadUserImage->uploaded) {
+						$image_name = md5(uniqid());
+						$uploadUserImage->file_new_name_body = $image_name;
+						$uploadUserImage->file_new_name_ext = 'png';
+						$uploadUserImage->resize = true;
+						$uploadUserImage->image_x = 500;
+						$uploadUserImage->image_ratio_y = true;
+						$dir_path = ROOT_PATH . DS . 'public' . DS . 'uploads' . DS . 'users' . DS . $atualizarUsuario->user->id . DS;
+						$uploadUserImage->process($dir_path);
+						if ($uploadUserImage->processed) {
+							$uploadUserImage->clean();
+							$this->load('Helpers\Alert', array(
+								'success',
+								'Uhuul! Perfil atualizado com sucesso!'
+							));
+							if (!is_null($atualizarUsuario->user->image)) {
+								unlink($dir_path . $atualizarUsuario->user->image);
+							}
+							$atualizarUsuario->user->image = $image_name . '.png';
+							$atualizarUsuario->user->save(false);
+						}
+						else {
+							$this->load('Helpers\Alert', array(
+								'error',
+								'Oops! Não foi possível atualizar a sua imagem de perfil',
+								$uploadUserImage->error
+							));
+						}
+					}
+				}else{
+					$this->load('Helpers\Alert', array(
+						'success',
+						'Uhuul! Perfil atualizado com sucesso!'
+					));
+				}
 
-				$this->load('Helpers\Alert', array(
-					'success',
-					'Uhuul! Perfil atualizado com sucesso!'
-				));
+				$this->view->setVar('user', $atualizarUsuario->user);
 			}
 		}
 	}
