@@ -14,7 +14,14 @@
   ]);
 
   if (!is_null($view_user->image)) {
-    echo '<image src="'.BASE.'public/uploads/users/'.$view_user->id.'/'.$view_user->image.'" width="200" />';
+    //echo '<image src="'.BASE.'public/uploads/users/'.$view_user->id.'/'.$view_user->image.'" width="200" />';
+    ?>
+    <div class="form-group elem-imgPerfil">
+      <div class="col-xs-12 col-md-12" style="text-align: center">
+        <img src="<?php echo BASE.'public/uploads/users/'.$view_user->id.'/'.$view_user->image ?>" alt="placeholder+image" class="img-thumbnail" style="max-height: 150px;">
+      </div>
+    </div>
+    <?php
   }
 
   Form::File(
