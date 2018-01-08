@@ -1,5 +1,5 @@
 <?php
-class HomeController extends \HXPHP\System\Controller
+class UsuariosController extends \HXPHP\System\Controller
 {
     public function __construct($configs)
 	{
@@ -13,6 +13,9 @@ class HomeController extends \HXPHP\System\Controller
 		);
 
 		$this->auth->redirectCheck();
+		$this->auth->roleCheck(array(
+			'administrator'
+		));
 
 		$user_id = $this->auth->getUserId();
 		$user = User::find($user_id);
@@ -26,13 +29,10 @@ class HomeController extends \HXPHP\System\Controller
 		);
 
 		$this->view->setTitle('HXPHP - Administrativo')
-					->setVar('user', $user);
+					->setVars([
+						'user' => $user,
+						'users' => User::all()
+					]);
 	}
 
-	public function bloqueadaAction()
-	{
-		$this->auth->roleCheck(array(
-			'administrator'
-		));
-	}
 }

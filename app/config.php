@@ -18,9 +18,16 @@ $configs->env->development->auth->setURLs('/sistema/home/', '/sistema/login');
 
 $configs->env->development->menu->setMenus(array(
   'Home/dashboard' => '%baseURI%/home',
-  'Projetos/briefcase' => '%baseURI%/projetos',
-  'Editar Perfil/cog' => '%baseURI%/perfil/editar'
+  'Editar Perfil/cog' => '%baseURI%/perfil/editar',
+  'Sair/sign-out' => '%baseURI%/login/sair'
 ), 'user');
+
+$configs->env->development->menu->setMenus(array(
+  'Home/dashboard' => '%baseURI%/home',
+  'Usuário/dashboard' => '%baseURI%/usuarios',
+  'Editar Perfil/cog' => '%baseURI%/perfil/editar',
+  'Sair/sign-out' => '%baseURI%/login/sair'
+), 'administrator');
 
 $configs->env->development->menu->setMenus(array(
   'Home/dashboard' => '%baseURI%/home'
