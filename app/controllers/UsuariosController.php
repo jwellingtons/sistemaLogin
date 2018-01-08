@@ -1,7 +1,7 @@
 <?php
 class UsuariosController extends \HXPHP\System\Controller
 {
-    public function __construct($configs)
+	public function __construct($configs)
 	{
 		parent::__construct($configs);
 
@@ -29,10 +29,51 @@ class UsuariosController extends \HXPHP\System\Controller
 		);
 
 		$this->view->setTitle('HXPHP - Administrativo')
-					->setVars([
-						'user' => $user,
-						'users' => User::all()
-					]);
+		->setFile('index')
+		->setVars([
+			'user' => $user,
+			'users' => User::all()
+		]);
 	}
 
+	public function bloquearAction($user_id)
+	{
+		if (is_numeric($user_id)) {
+			$user = User::find_by_id($user_id);
+
+			if (!is_null($user)) {
+				$user->status = 0;
+				$user->save();
+
+				$this->view->setVar('users', User::all());
+			}
+		}
+	}
+
+	public function desbloquearAction($user_id)
+	{
+		if (is_numeric($user_id)) {
+			$user = User::find_by_id($user_id);
+
+			if (!is_null($user)) {
+				$user->status = 1;
+				$user->save();
+
+				$this->view->setVar('users', User::all());
+			}
+		}
+	}
+
+	public function excluirAction($user_id)
+	{
+		if (is_numeric($user_id)) {
+			$user = User::find_by_id($user_id);
+
+			if (!is_null($user)) {
+				$user->delete();
+
+				$this->view->setVar('users', User::all());
+			}
+		}
+	}
 }
